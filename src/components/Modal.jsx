@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Mensaje from "./Mensaje"
 import CerrarBtn from "../img/cerrar.svg"
 
-export default function Modal({ setModal, animarModal, setAnimarModal, guardarGasto }) {
+export default function Modal({
+    setModal,
+    animarModal,
+    setAnimarModal,
+    guardarGasto,
+    gastoEditar }) {
 
 
-    const[mensaje,setMensaje]=useState('')
+    const [mensaje, setMensaje] = useState('')
 
     const [nombre, setNombre] = useState('')
     const [cantidad, setCantidad] = useState('')
-    const [categoria,setCategoria] = useState('')
+    const [categoria, setCategoria] = useState('')
+    const [fecha, setFecha] = useState('')
+    const [id,setId]=useState('')
+
+    useEffect(()=>{
+        if (Object.keys(gastoEditar).length>0) {
+            setNombre(gastoEditar.nombre)
+            setCantidad(gastoEditar.cantidad)
+            setCategoria(gastoEditar.categoria)
+            setId(gastoEditar.id)
+            setFecha(gastoEditar.fecha)
+
+        }
+    },[]);
 
     const ocultarModal = () => {
 
@@ -35,7 +53,7 @@ export default function Modal({ setModal, animarModal, setAnimarModal, guardarGa
             return;
         }
 
-        guardarGasto({nombre, cantidad, categoria})
+        guardarGasto({ nombre, cantidad, categoria, id, fecha })
 
     }
 
@@ -48,12 +66,12 @@ export default function Modal({ setModal, animarModal, setAnimarModal, guardarGa
             <form
                 onSubmit={handleSubmit}
                 className={`formulario ${animarModal ? "animar" : "cerrar"}`}>
-                <legend>Nuego Gasto</legend>
+                <legend>{gastoEditar.nombre?'Editar gasto':'Nuego Gasto'}</legend>
 
                 {mensaje && <Mensaje tipo="error">
                     {mensaje}
-                    
-                    </Mensaje>}
+
+                </Mensaje>}
 
                 <div className="campo">
                     <label htmlFor="nombre">Nombre Gasto</label>
@@ -73,7 +91,7 @@ export default function Modal({ setModal, animarModal, setAnimarModal, guardarGa
                         type="text"
                         placeholder="Añade la cantidad del gasto: ej.300"
                         value={cantidad}
-                        onChange={e => setCantidad(e.target.value)}
+                        onChange={e => setCantidad(Number(e.target.value))}
                     />
                 </div>
 
@@ -99,7 +117,7 @@ export default function Modal({ setModal, animarModal, setAnimarModal, guardarGa
                 </div>
 
                 <input type="submit"
-                    value="Añadir gasto" />
+                    value={gastoEditar.nombre?'Guardar cambios':'Añadir Gasto'} />
 
 
             </form>
