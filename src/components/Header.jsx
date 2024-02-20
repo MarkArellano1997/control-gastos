@@ -1,7 +1,13 @@
 import ControlPresupuesto from "./ControlPresupuesto"
 import NuevoPresupuesto from "./NuevoPresupuesto"
 
-export default function Header({ presupuesto, setPresupuesto, isValidPresupuesto, setIsValidPresupuesto, gastos }) {
+export default function Header({
+  presupuesto,
+  setPresupuesto,
+  isValidPresupuesto,
+  setIsValidPresupuesto,
+  gastos,
+  setGastos}) {
   return (
     <header>
       <h1>Planificador de Gastos</h1>
@@ -9,7 +15,10 @@ export default function Header({ presupuesto, setPresupuesto, isValidPresupuesto
       {isValidPresupuesto ? (
         <ControlPresupuesto
           gastos={gastos}
+          setGastos={setGastos}
           presupuesto={presupuesto}
+          setPresupuesto={setPresupuesto}
+          setIsValidPresupuesto={setIsValidPresupuesto}
         />
       ) :
         (<NuevoPresupuesto

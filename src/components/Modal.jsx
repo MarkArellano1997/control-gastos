@@ -7,7 +7,9 @@ export default function Modal({
     animarModal,
     setAnimarModal,
     guardarGasto,
-    gastoEditar }) {
+    gastoEditar,
+    setGastoEditar
+}) {
 
 
     const [mensaje, setMensaje] = useState('')
@@ -32,6 +34,8 @@ export default function Modal({
     const ocultarModal = () => {
 
         setAnimarModal(false)
+
+        setGastoEditar({})
 
         setTimeout(() => {
             setModal(false)

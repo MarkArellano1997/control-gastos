@@ -25,7 +25,7 @@ const diccionarioIconos = {
   suscripciones: IconoSuscripciones
 }
 
-export default function Gasto({ gasto,setGastoEditar }) {
+export default function Gasto({ gasto,setGastoEditar, eliminarGasto }) {
 
   const { categoria, nombre, cantidad, id, fecha } = gasto
 
@@ -41,7 +41,7 @@ export default function Gasto({ gasto,setGastoEditar }) {
     <TrailingActions>
       <SwipeAction
         destructive={true}
-        onClick={() => console.info('Eliminar')}
+        onClick={() => eliminarGasto(id)}
       >
         Eliminar
       </SwipeAction>
